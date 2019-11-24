@@ -12,6 +12,32 @@ storageBucket: "crown-db-49fc2.appspot.com",
 messagingSenderId: "579149093433",
 appId: "1:579149093433:web:6c7f0f7da96a4fe6548be8"
 };
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if (!userAuth) return;
+
+    const userRef = firestore.doc(`users/${userAuth.uid}`)
+    const snapShot = await userRef.get()
+
+    if (!snapShot.exists) {
+        const {displayName, email} = userAuth
+        const createdAt = new Date()
+
+        try {
+            await userRef.set({
+                displayName,
+                email,
+                createdAt
+            })
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    return userRef
+        
+}
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
