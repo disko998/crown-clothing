@@ -5,8 +5,10 @@ import {connect} from 'react-redux'
 import './header.styles.scss'
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 import { auth } from '../../firebase/firebase.utils'
+import {CartIcon, CartDropdown} from '../index'
+import {toggleDropdown} from '../../redux/cart/cart.action'
 
-const HeaderComponent = ({user}) => {
+const HeaderComponent = ({user, cartHidden, toggleDropdown}) => {
     return (
         <div className='header'>
             <Link to='/' className='logo-container'>
@@ -27,13 +29,21 @@ const HeaderComponent = ({user}) => {
                         Sign in
                     </Link>
                 }
+                <CartIcon onClick={() => toggleDropdown()} />
             </div>
+            {cartHidden ? null : <CartDropdown />}
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user.currentUser
+    user: state.user.currentUser,
+    cartHidden: state.cart.hidden
 })
-export const Header = connect(mapStateToProps)(HeaderComponent)
+
+const mapDispatchToProps = dispatch => ({
+    toggleDropdown: () => dispatch(toggleDropdown())
+})
+
+export const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderComponent)
 
