@@ -33,7 +33,7 @@ export const CheckoutPageComponent = ({createItem, totalAmount}) => {
             }
 
             <div className='total'>
-                <span className='total'>TOTAL: {totalAmount}</span>
+                <span className='total'>TOTAL: ${totalAmount}</span>
             </div>
         </div>
     )
