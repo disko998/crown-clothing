@@ -8,7 +8,7 @@ import { auth } from '../../firebase/firebase.utils'
 import {CartIcon, CartDropdown} from '../index'
 import {toggleDropdown} from '../../redux/cart/cart.action'
 
-const HeaderComponent = ({user, cartHidden, toggleDropdown}) => {
+const HeaderComponent = ({user, cartHidden, toggleDropdown, cartItems}) => {
     return (
         <div className='header'>
             <Link to='/' className='logo-container'>
@@ -29,16 +29,17 @@ const HeaderComponent = ({user, cartHidden, toggleDropdown}) => {
                         Sign in
                     </Link>
                 }
-                <CartIcon onClick={() => toggleDropdown()} />
+                <CartIcon onClick={() => toggleDropdown()} label={cartItems.length} />
             </div>
-            {cartHidden ? null : <CartDropdown />}
+            {cartHidden ? null : <CartDropdown cartItems={cartItems} />}
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
     user: state.user.currentUser,
-    cartHidden: state.cart.hidden
+    cartHidden: state.cart.hidden,
+    cartItems: state.cart.items
 })
 
 const mapDispatchToProps = dispatch => ({

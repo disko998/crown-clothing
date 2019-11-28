@@ -3,7 +3,7 @@ import React from 'react'
 import './cart-dropdown.styles.scss'
 import {CustomButton} from '../index'
 
-export const CartDropdown = () => {
+export const CartDropdown = ({items}) => {
     return (
         <div className='cart-dropdown'>
             <div className='cart-items'></div>
