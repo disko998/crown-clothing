@@ -29,9 +29,9 @@ const HeaderComponent = ({user, cartHidden, toggleDropdown, cartItems}) => {
                         Sign in
                     </Link>
                 }
-                <CartIcon onClick={() => toggleDropdown()} label={cartItems.length} />
+                <CartIcon onClick={() => toggleDropdown()} />
             </div>
-            {cartHidden ? null : <CartDropdown cartItems={cartItems} />}
+            {cartHidden ? null : <CartDropdown />}
         </div>
     )
 }
@@ -39,7 +39,6 @@ const HeaderComponent = ({user, cartHidden, toggleDropdown, cartItems}) => {
 const mapStateToProps = (state) => ({
     user: state.user.currentUser,
     cartHidden: state.cart.hidden,
-    cartItems: state.cart.items
 })
 
 const mapDispatchToProps = dispatch => ({
