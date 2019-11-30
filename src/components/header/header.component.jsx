@@ -11,7 +11,7 @@ import {toggleDropdown} from '../../redux/cart/cart.action'
 import {selectCartHidden} from '../../redux/cart/cart.selectors'
 import {selectCurrentUser} from '../../redux/user/user.selectors'
 
-const HeaderComponent = ({user, cartHidden, toggleDropdown, cartItems}) => {
+const HeaderComponent = ({user, cartHidden, toggleDropdown}) => {
     return (
         <div className='header'>
             <Link to='/' className='logo-container'>
