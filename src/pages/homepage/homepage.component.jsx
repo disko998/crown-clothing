@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import './homepage.styles.scss'
-import { Directory } from '../../components'
+import { Directory } from "../../components";
+import { HomePageContainer } from "./homepage.styles.js";
 
 export class Homepage extends Component {
-    render() {
-        return (
-            <div className='homepage'>
-                <Directory />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <HomePageContainer>
+        <Directory />
+      </HomePageContainer>
+    );
+  }
 }

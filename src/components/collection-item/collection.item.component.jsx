@@ -1,34 +1,39 @@
-import React from 'react'
-import {connect} from 'react-redux'
+import React from "react";
+import { connect } from "react-redux";
 
-import './collection-item.styles.scss'
-import {CustomButton} from '../index'
-import {addItemToCart} from '../../redux/cart/cart.action'
+import { addItemToCart } from "../../redux/cart/cart.action";
+import {
+  AddToCartButton,
+  CollectionItemContainer,
+  CollectionFooter,
+  Name,
+  Price,
+  CartImage
+} from "./collection-item.styles.js";
 
-export const CollectionItemComponent = ({item, addToCart}) => {
-        const {name, price, imageUrl} = item
+export const CollectionItemComponent = ({ item, addToCart }) => {
+  const { name, price, imageUrl } = item;
 
-        return (
-            <div className='collection-item'>
-                <div 
-                className='image' 
-                style={{
-                    backgroundImage: `url(${imageUrl})`
-                }}>
-                    <CustomButton inverted onClick={() => addToCart(item)} >
-                        Add to cart
-                    </CustomButton>
-                </div>
-                <div className='collection-footer'>
-                    <span className='name'>{name}</span>
-                    <span className='price'>{price}</span>
-                </div>
-            </div>
-        )
-    }
+  return (
+    <CollectionItemContainer>
+      <CartImage style={{ backgroundImage: `url(${imageUrl})` }}>
+        <AddToCartButton inverted onClick={() => addToCart(item)}>
+          Add to cart
+        </AddToCartButton>
+      </CartImage>
+      <CollectionFooter>
+        <Name>{name}</Name>
+        <Price>{price}</Price>
+      </CollectionFooter>
+    </CollectionItemContainer>
+  );
+};
 
-const dispatchToProps = (dispatch) => ({
-    addToCart: (item) => dispatch(addItemToCart(item))
-})
+const dispatchToProps = dispatch => ({
+  addToCart: item => dispatch(addItemToCart(item))
+});
 
-export const CollectionItem = connect(null, dispatchToProps)(CollectionItemComponent)
+export const CollectionItem = connect(
+  null,
+  dispatchToProps
+)(CollectionItemComponent);
