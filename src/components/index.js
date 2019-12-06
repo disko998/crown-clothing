@@ -13,3 +13,4 @@ export * from "./cart-items";
 export * from "./checkout-item";
 export * from "./collections-overview";
 export * from "./stripe-button";
+export * from "./with-spinner";

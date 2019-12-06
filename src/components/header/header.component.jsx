@@ -19,19 +19,19 @@ import {
 const HeaderComponent = ({ user, cartHidden, toggleDropdown }) => {
   return (
     <HeaderContainer>
-      <LogoContainer to="/">
-        <Logo className="logo" />
+      <LogoContainer to='/'>
+        <Logo className='logo' />
       </LogoContainer>
 
       <OptionsContainer>
-        <OptionLink to="/shop">Shop</OptionLink>
-        <OptionLink to="/contact">Contact</OptionLink>
+        <OptionLink to='/shop'>Shop</OptionLink>
+        <OptionLink to='/contact'>Contact</OptionLink>
         {user ? (
-          <OptionLink as="div" onClick={() => auth.signOut()}>
+          <OptionLink to='' as='div' onClick={() => auth.signOut()}>
             Sign out
           </OptionLink>
         ) : (
-          <OptionLink to="/signin">Sign in</OptionLink>
+          <OptionLink to='/signin'>Sign in</OptionLink>
         )}
         <CartIcon onClick={() => toggleDropdown()} />
       </OptionsContainer>
