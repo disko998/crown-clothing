@@ -1,37 +1,19 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import { CollectionsOverview, WithSpinner } from "../../components";
 import { CollectionPage } from "../collection/collection.component";
-import { updateCollections } from "../../redux/shop/shop.actions";
-import {
-  firestore,
-  convertCollectionsSnapshotToMap
-} from "../../firebase/firebase.utils";
+import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
+import { selectIsFetching } from "../../redux/shop/shop.selectors";
 
-const CollectionsOverviewWithSpinner = WithSpinner(
-  CollectionsOverview,
-  "overview"
-);
-const CollectionsPageWithSpinner = WithSpinner(CollectionPage, "page");
-console.log("Shop", CollectionPage);
+const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
+const CollectionsPageWithSpinner = WithSpinner(CollectionPage);
 
 export class ShopPageComponent extends React.Component {
-  state = {
-    loading: true
-  };
-
-  unsubscribeFromSnapShot = null;
-
   componentDidMount() {
-    const collectionRef = firestore.collection("collections");
-
-    collectionRef.onSnapshot(async snapshot => {
-      const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-      this.props.updateCollections(collectionsMap);
-      this.setState({ loading: false });
-    });
+    this.props.fetchCollectionsAsync();
   }
 
   render() {
@@ -44,7 +26,7 @@ export class ShopPageComponent extends React.Component {
           path={`${match.path}`}
           render={props => (
             <CollectionsOverviewWithSpinner
-              isLoading={this.state.loading}
+              isLoading={this.props.isLoading}
               {...props}
             />
           )}
@@ -53,7 +35,7 @@ export class ShopPageComponent extends React.Component {
           path={`${match.path}/:collectionId`}
           render={props => (
             <CollectionsPageWithSpinner
-              isLoading={this.state.loading}
+              isLoading={this.props.isLoading}
               {...props}
             />
           )}
@@ -63,8 +45,15 @@ export class ShopPageComponent extends React.Component {
   }
 }
 
-const dispatchToProps = dispatch => ({
-  updateCollections: payload => dispatch(updateCollections(payload))
+const mapStateToProps = createStructuredSelector({
+  isLoading: selectIsFetching
 });
 
-export const ShopPage = connect(null, dispatchToProps)(ShopPageComponent);
+const dispatchToProps = dispatch => ({
+  fetchCollectionsAsync: () => dispatch(fetchCollectionsStartAsync())
+});
+
+export const ShopPage = connect(
+  mapStateToProps,
+  dispatchToProps
+)(ShopPageComponent);

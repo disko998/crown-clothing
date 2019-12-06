@@ -7,6 +7,11 @@ export const selectCollections = createSelector(
   shop => shop.collections
 );
 
+export const selectIsFetching = createSelector(
+  selectShop,
+  shop => shop.isFetching
+);
+
 export const selectCollectionsInArray = createSelector(
   selectCollections,
   collections =>
