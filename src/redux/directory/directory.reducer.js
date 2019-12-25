@@ -1,44 +1,28 @@
 const INITIAL_STATE = {
-  sections: [
-    {
-      title: 'hats',
-      imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-      id: 1,
-      linkUrl: 'shop/hats',
-    },
-    {
-      title: 'jackets',
-      imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-      id: 2,
-      linkUrl: 'shop/jackets'
-    },
-    {
-      title: 'sneakers',
-      imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-      id: 3,
-      linkUrl: 'shop/sneakers'
-    },
-    {
-      title: 'womens',
-      imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-      size: 'large',
-      id: 4,
-      linkUrl: 'shop/womens'
-    },
-    {
-      title: 'mens',
-      imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-      size: 'large',
-      id: 5,
-      linkUrl: 'shop/mens'
-    }
-  ]
+    sections: [
+        {
+            title: 'Slatka Zimnica',
+            imageUrl:
+                'https://images.bonnier.cloud/files/bob/production/2018/05/29141801/gode-rad-om-syltning-rJ6e-TKz5SQkJpLfOcvUuw.jpg?auto=compress&fm=pjpg&max-w=2160&ixlib=js-1.4.1',
+            size: 'large',
+            id: 4,
+            linkUrl: 'shop/slatka%20zimnica',
+        },
+        {
+            title: 'Slana Zimnica',
+            imageUrl:
+                'https://slika.nezavisne.rs/2017/09/750x450/20170908183106_442307.jpg',
+            size: 'large',
+            id: 5,
+            linkUrl: 'shop/slana%20zimnica',
+        },
+    ],
 }
 
 const directoryReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         default:
-          return state;
+            return state
     }
 }
 

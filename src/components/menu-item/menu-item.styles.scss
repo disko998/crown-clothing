@@ -10,60 +10,60 @@
     overflow: hidden;
 
     &:hover {
-      cursor: pointer;
+        cursor: pointer;
 
-      .background-image {
-        transform: scale(1.1);
-        transition: transform 6s cubic-bezier(.25, .45, .45, .95);
-      }
+        .background-image {
+            transform: scale(1.1);
+            transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+        }
 
-      .content {
-        opacity: .9;
-      }
+        .content {
+            opacity: 0.9;
+        }
     }
 
     .background-image {
-      background-position: center;
-      background-size: cover;
-      height: 100%;
-      width: 100%;
+        background-position: center;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
     }
 
     &.large {
-      height: 380px;
+        height: 600px;
     }
-  
+
     &:first-child {
-      margin-right: 7.5px;
+        margin-right: 7.5px;
     }
-  
+
     &:last-child {
-      margin-left: 7.5px;
+        margin-left: 7.5px;
     }
-  
+
     .content {
-      height: 90px;
-      padding: 0 25px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid black;
-      background: white;
-      opacity: .7;
-      position: absolute;
-  
-      .title {
-        text-transform: uppercase;
-        font-weight: bold;
-        margin-bottom: 6px;
-        font-size: 22px;
-        color: #4a4a4a;
-      }
-  
-      .subtitle {
-        font-weight: lighter;
-        font-size: 18px;
-      }
+        height: 90px;
+        padding: 0 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+        background: white;
+        opacity: 0.7;
+        position: absolute;
+
+        .title {
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 22px;
+            color: #4a4a4a;
+        }
+
+        .subtitle {
+            font-weight: lighter;
+            font-size: 18px;
+        }
     }
-  }
+}
