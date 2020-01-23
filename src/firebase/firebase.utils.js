@@ -12,6 +12,16 @@ var firebaseConfig = {
     messagingSenderId: '579149093433',
     appId: '1:579149093433:web:6c7f0f7da96a4fe6548be8',
 }
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig)
+
+export const auth = firebase.auth()
+export const firestore = firebase.firestore()
+export const provider = new firebase.auth.GoogleAuthProvider()
+
+provider.setCustomParameters({ prompt: 'select_account' })
+
+// Utilities functions
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return
@@ -38,27 +48,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     return userRef
 }
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig)
-
-export const auth = firebase.auth()
-export const firestore = firebase.firestore()
-
-const provider = new firebase.auth.GoogleAuthProvider()
-provider.setCustomParameters({ prompt: 'select_account' })
-
-// Utilities functions
-export const signInWithGoogle = () => auth.signInWithPopup(provider)
-
-export const signInWithEmailAndPassword = (email, pass) =>
-    auth.signInWithEmailAndPassword(email, pass)
-
-export const addCollectionAndDocuments = async (
-    collectionName,
-    objectsToAdd
-) => {
+export const addCollectionAndDocuments = async (collectionName, objectsToAdd) => {
     const collectionRef = firestore.collection(collectionName)
-    console.log(collectionRef)
 
     // Batch will save are document only if every object is successfully written in db
     // We use that instead of docRef.set() because if something happens with internet connection the no document will be saved on backend
@@ -87,6 +78,15 @@ export const convertCollectionsSnapshotToMap = collection => {
         accumulator[collection.title.toLowerCase()] = collection
         return accumulator
     }, {})
+}
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = auth.onAuthStateChanged(userAuth => {
+            unsubscribe()
+            resolve(userAuth)
+        }, reject)
+    })
 }
 
 export default firebase

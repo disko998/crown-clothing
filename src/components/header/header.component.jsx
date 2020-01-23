@@ -3,20 +3,15 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
 import { ReactComponent as Logo } from '../../assets/crown.svg'
-import { auth } from '../../firebase/firebase.utils'
 import { CartIcon, CartDropdown } from '../index'
 import { toggleDropdown } from '../../redux/cart/cart.action'
+import { signOutStart } from '../../redux/user/user.action'
 import { selectCartHidden } from '../../redux/cart/cart.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 
-import {
-    HeaderContainer,
-    OptionsContainer,
-    OptionLink,
-    LogoContainer,
-} from './header.styles.js'
+import { HeaderContainer, OptionsContainer, OptionLink, LogoContainer } from './header.styles.js'
 
-const HeaderComponent = ({ user, cartHidden, toggleDropdown }) => {
+const HeaderComponent = ({ user, cartHidden, toggleDropdown, signOut }) => {
     return (
         <HeaderContainer>
             <LogoContainer to='/'>
@@ -27,7 +22,7 @@ const HeaderComponent = ({ user, cartHidden, toggleDropdown }) => {
                 <OptionLink to='/shop'>Shop</OptionLink>
                 <OptionLink to='/contact'>Contact</OptionLink>
                 {user ? (
-                    <OptionLink to='' as='div' onClick={() => auth.signOut()}>
+                    <OptionLink to='' as='div' onClick={signOut}>
                         Sign out
                     </OptionLink>
                 ) : (
@@ -47,9 +42,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     toggleDropdown: () => dispatch(toggleDropdown()),
+    signOut: () => dispatch(signOutStart()),
 })
 
-export const Header = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(HeaderComponent)
+export const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderComponent)

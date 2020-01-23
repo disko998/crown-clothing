@@ -1,16 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import './sign-in.styles.scss'
-import {FormInput, CustomButton} from '../index'
-import {signInWithGoogle, signInWithEmailAndPassword} from '../../firebase/firebase.utils'
+import { FormInput, CustomButton } from '../index'
+import { googleSignInStart, emailSignInStart } from '../../redux/user/user.action'
 
-export class SignIn extends React.Component {
+export class SignInComponent extends React.Component {
     state = {
         email: '',
-        password: ''
+        password: '',
     }
 
     render() {
+        const { signInWithGoogle } = this.props
+
         return (
             <div className='sign-in'>
                 <h2>I already have account</h2>
@@ -25,7 +28,7 @@ export class SignIn extends React.Component {
                         value={this.state.email}
                         required
                     />
-                    <FormInput 
+                    <FormInput
                         label='Password'
                         name='password'
                         type='password'
@@ -34,10 +37,8 @@ export class SignIn extends React.Component {
                         required
                     />
                     <div className='buttons'>
-                        <CustomButton type='submit'>
-                            Sign in
-                        </CustomButton>
-                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+                        <CustomButton type='submit'>Sign in</CustomButton>
+                        <CustomButton type='button' onClick={signInWithGoogle} isGoogleSignIn>
                             Sign in with google
                         </CustomButton>
                     </div>
@@ -46,25 +47,27 @@ export class SignIn extends React.Component {
         )
     }
 
-    handleChange = (e) => {
-        const {value, name} = e.target
+    handleChange = e => {
+        const { value, name } = e.target
 
-        this.setState({[name]: value})
+        this.setState({ [name]: value })
     }
 
-    handleSubmit = async (e) => {
+    handleSubmit = e => {
         e.preventDefault()
 
-        const {email, password} =  this.state
+        const { signInWithEmailAndPassword } = this.props
+        const { email, password } = this.state
 
-        try {
-            await signInWithEmailAndPassword(email, password)
-            this.setState({email: '', password: ''})
-        } catch (error) {
-            console.error(error)
-            alert(error.message)
-        }
+        signInWithEmailAndPassword(email, password)
 
+        this.setState({ email: '', password: '' })
     }
 }
 
+const mapDispatchToProps = dispatch => ({
+    signInWithGoogle: () => dispatch(googleSignInStart()),
+    signInWithEmailAndPassword: (email, password) => dispatch(emailSignInStart(email, password)),
+})
+
+export const SignIn = connect(null, mapDispatchToProps)(SignInComponent)
