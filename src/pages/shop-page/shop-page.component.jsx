@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
@@ -11,38 +11,26 @@ import { selectIsFetching } from '../../redux/shop/shop.selectors'
 const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview)
 const CollectionsPageWithSpinner = WithSpinner(CollectionPage)
 
-export class ShopPageComponent extends React.Component {
-    componentDidMount() {
-        this.props.fetchCollectionsStart()
-    }
+export const ShopPageComponent = ({ isLoading, fetchCollectionsStart, match }) => {
+    useEffect(() => {
+        fetchCollectionsStart()
+    }, [fetchCollectionsStart])
 
-    render() {
-        const { match } = this.props
-
-        return (
-            <div className='shop-page'>
-                <Route
-                    exact
-                    path={`${match.path}`}
-                    render={props => (
-                        <CollectionsOverviewWithSpinner
-                            isLoading={this.props.isLoading}
-                            {...props}
-                        />
-                    )}
-                />
-                <Route
-                    path={`${match.path}/:collectionId`}
-                    render={props => (
-                        <CollectionsPageWithSpinner
-                            isLoading={this.props.isLoading}
-                            {...props}
-                        />
-                    )}
-                />
-            </div>
-        )
-    }
+    return (
+        <div className='shop-page'>
+            <Route
+                exact
+                path={`${match.path}`}
+                render={props => (
+                    <CollectionsOverviewWithSpinner isLoading={isLoading} {...props} />
+                )}
+            />
+            <Route
+                path={`${match.path}/:collectionId`}
+                render={props => <CollectionsPageWithSpinner isLoading={isLoading} {...props} />}
+            />
+        </div>
+    )
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -53,7 +41,4 @@ const dispatchToProps = dispatch => ({
     fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
 })
 
-export const ShopPage = connect(
-    mapStateToProps,
-    dispatchToProps
-)(ShopPageComponent)
+export const ShopPage = connect(mapStateToProps, dispatchToProps)(ShopPageComponent)
