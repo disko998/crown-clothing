@@ -30,13 +30,10 @@ class CollectionItemComponent extends React.Component {
                 </CartImage>
                 <CollectionFooter>
                     <Name>{name}</Name>
-                    <Price>{price} RSD</Price>
+                    <Price>${price}</Price>
                 </CollectionFooter>
                 {this.state.openModal && (
-                    <ImageLightbox
-                        image={imageUrl}
-                        onClose={() => this.setState({ openModal: false })}
-                    />
+                    <ImageLightbox image={imageUrl} onClose={() => this.setState({ openModal: false })} />
                 )}
             </CollectionItemContainer>
         )
@@ -47,7 +44,4 @@ const dispatchToProps = dispatch => ({
     addToCart: item => dispatch(addItemToCart(item)),
 })
 
-export const CollectionItem = connect(
-    null,
-    dispatchToProps
-)(CollectionItemComponent)
+export const CollectionItem = connect(null, dispatchToProps)(CollectionItemComponent)

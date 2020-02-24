@@ -19,8 +19,8 @@ const HeaderComponent = ({ user, cartHidden, toggleDropdown, signOut }) => {
             </LogoContainer>
 
             <OptionsContainer>
+                <OptionLink to='/'>Home</OptionLink>
                 <OptionLink to='/shop'>Shop</OptionLink>
-                <OptionLink to='/contact'>Contact</OptionLink>
                 {user ? (
                     <OptionLink to='' as='div' onClick={signOut}>
                         Sign out

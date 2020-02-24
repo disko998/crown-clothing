@@ -1,20 +1,20 @@
 const INITIAL_STATE = {
     sections: [
         {
-            title: 'Slatka Zimnica',
+            title: 'Mans',
             imageUrl:
-                'https://images.bonnier.cloud/files/bob/production/2018/05/29141801/gode-rad-om-syltning-rJ6e-TKz5SQkJpLfOcvUuw.jpg?auto=compress&fm=pjpg&max-w=2160&ixlib=js-1.4.1',
+                'https://firebasestorage.googleapis.com/v0/b/crown-db-49fc2.appspot.com/o/mans-min.jpg?alt=media&token=16de17de-e704-4139-8b54-a09e0bf92c22',
             size: 'large',
             id: 4,
-            linkUrl: 'shop/slatka%20zimnica',
+            linkUrl: 'shop/mens',
         },
         {
-            title: 'Slana Zimnica',
+            title: 'Womens ',
             imageUrl:
-                'https://slika.nezavisne.rs/2017/09/750x450/20170908183106_442307.jpg',
+                'https://firebasestorage.googleapis.com/v0/b/crown-db-49fc2.appspot.com/o/womans-min.jpg?alt=media&token=4c0a6459-95f2-4c78-b77b-eba51f6fb67f',
             size: 'large',
             id: 5,
-            linkUrl: 'shop/slana%20zimnica',
+            linkUrl: 'shop/womens',
         },
     ],
 }

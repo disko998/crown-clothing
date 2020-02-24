@@ -20,9 +20,7 @@ export const StripeCheckoutButton = ({ price }) => {
             })
             .catch(error => {
                 console.log('Payment failed', error)
-                alert(
-                    'There was a issue with your payment. Please sure you provide valid credit card',
-                )
+                alert('There was a issue with your payment. Please sure you provide valid credit card')
             })
     }
 

@@ -49,12 +49,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 }
 
 export const addCollectionAndDocuments = async (collectionName, objectsToAdd) => {
+    const objectToArray = Object.keys(objectsToAdd).map(key => objectsToAdd[key])
     const collectionRef = firestore.collection(collectionName)
 
-    // Batch will save are document only if every object is successfully written in db
-    // We use that instead of docRef.set() because if something happens with internet connection the no document will be saved on backend
     const batch = firestore.batch()
-    objectsToAdd.forEach(obj => {
+    objectToArray.forEach(obj => {
         const newDocRef = collectionRef.doc()
         batch.set(newDocRef, obj)
     })
